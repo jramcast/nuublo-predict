@@ -2,14 +2,14 @@
 
 Weather text classifier
 
-# Run
+## Run
 
 ```
 pip install requirements.txt
 ./server.py
 ```
 
-# Classifiy text
+## Classifiy text
 
 ```
 curl -X POST \
