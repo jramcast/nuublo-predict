@@ -69,10 +69,14 @@ class TempExtractor(BaseEstimator, TransformerMixin):
         return self
 
     def get_temperature(self, tweet):
-        match = re.search(r'(\d+(\.\d)?)\s*F', tweet, re.IGNORECASE)
+        match = re.search(r'(\d+(\.\d)?)\s*(ºC|F)', tweet, re.IGNORECASE)
         if match:
             value = float(match.group(1))
-            celsius = (value - 32) / 1.8
+            # convert when degrees are fahrenheit
+            if match.group(3).lower() == 'f':
+                celsius = (value - 32) / 1.8
+            else:
+                celsius = value
             if - 100 < celsius < 100:
                 return celsius
         return None
