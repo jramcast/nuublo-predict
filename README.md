@@ -1,11 +1,12 @@
 # nuublo-predict
 
-Weather text classifier
+Weather text classifier based on https://www.kaggle.com/c/crowdflower-weather-twitter/data
 
 ## Run
+Requires python 3.
 
 ```
-pip install requirements.txt
+pip install -r requirements.txt
 ./server.py
 ```
 
