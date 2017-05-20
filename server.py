@@ -62,11 +62,13 @@ def format_result(result):
     """
     Formats the classification result to send to the client
     """
-    formatted = []
+    formatted = {}
     for classname in result:
         if result[classname] == 1:
-            formatted = formatted + [CLASSES[classname]]
-    return formatted
+            formatted[classname] = CLASSES[classname]
+    return {
+        'classes': formatted,
+    }
 
 
 if __name__ == '__main__':

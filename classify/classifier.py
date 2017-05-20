@@ -92,7 +92,7 @@ def train_class(x_train, y_train):
         ('cls', svm),
     ])
 
-    accuracy = cross_val_score(pipeline, x_train, y_train, scoring='accuracy')
+    accuracy = cross_val_score(pipeline, x_train, y_train, scoring='accuracy', n_jobs=3)
     print('=== Accuracy ===')
     print(np.mean(accuracy))
     pipeline.fit(x_train, y_train)
@@ -106,5 +106,5 @@ def filter_class(data, classname):
     classes = []
     for row in data:
         value = float(row[classname])
-        classes.append(math.ceil(value))
+        classes.append(value > 0.5)
     return classes
