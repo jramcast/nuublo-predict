@@ -4,7 +4,6 @@ The weather classifier module
 
 import os
 import time
-import math
 import numpy as np
 from sklearn.svm import LinearSVC
 from sklearn.model_selection import cross_val_score
@@ -13,10 +12,10 @@ from sklearn.pipeline import Pipeline, FeatureUnion
 from sklearn.externals import joblib
 from classify.classes import CLASSES
 from classify.preprocessing import (SentimentExtractor,
-                           TempExtractor,
-                           WindExtractor,
-                           tokenize,
-                           STOPWORDS)
+                                    TempExtractor,
+                                    WindExtractor,
+                                    tokenize,
+                                    STOPWORDS)
 
 # Loaded models will be stored here
 MODELS = {}
@@ -40,6 +39,7 @@ def train(data):
     """
     Trains the classifier. Each class is trained separately and saved to disk
     """
+    models_path = os.path.dirname(os.path.abspath(__file__))
     x_train = [row['tweet'] for row in data]
     for classname in CLASSES:
         print("--------------------------> Training " + classname)
@@ -49,7 +49,7 @@ def train(data):
         # save model
         joblib.dump(
             classifier,
-            '{}/models/{}.pkl'.format(os.path.dirname(os.path.abspath(__file__)), classname)
+            '{}/models/{}.pkl'.format(models_path, classname)
         )
         print('Time elapsed:')
         print(time.time() - start_time)
@@ -61,7 +61,9 @@ def load():
     """
     print('Loading models...')
     for classname in CLASSES:
-        MODELS[classname] = joblib.load('classify/models/{}.pkl'.format(classname))
+        MODELS[classname] = joblib.load(
+            'classify/models/{}.pkl'.format(classname)
+        )
     print('Models loaded')
 
 
@@ -92,7 +94,13 @@ def train_class(x_train, y_train):
         ('cls', svm),
     ])
 
-    accuracy = cross_val_score(pipeline, x_train, y_train, scoring='accuracy', n_jobs=3)
+    accuracy = cross_val_score(
+        pipeline,
+        x_train,
+        y_train,
+        scoring='accuracy',
+        n_jobs=3)
+
     print('=== Accuracy ===')
     print(np.mean(accuracy))
     pipeline.fit(x_train, y_train)

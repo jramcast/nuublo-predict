@@ -4,7 +4,6 @@ feeding it into the classfier
 """
 import string
 import re
-from nltk.stem import SnowballStemmer
 from nltk.corpus import stopwords
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.preprocessing import MinMaxScaler, Imputer

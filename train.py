@@ -4,7 +4,6 @@
 Train script
 """
 import csv
-import os
 from classify import classifier
 
 

@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 
 import sys
-from flask import Flask, request
+from flask import Flask
 from flask_restful import Resource, Api, reqparse
-from json import dumps
 from flask_jsonpify import jsonify
 from classify.classes import CLASSES
 from classify import classifier
@@ -27,7 +26,8 @@ class Prediction(Resource):
         """
         GET /prediction
         """
-        result = {'info': 'Prediction endpoint. Make a POST request to make a prediction'}
+        result = {'info': 'Prediction endpoint. '
+                          'Make a POST request to make a prediction'}
         return jsonify(result)
 
     def post(self):
@@ -43,6 +43,7 @@ class Prediction(Resource):
             }, 500
         result = classifier.predict([text])
         return format_result(result), 201
+
 
 api.add_resource(Prediction, '/prediction')
 
