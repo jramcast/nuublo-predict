@@ -1,7 +1,21 @@
+sudo: required
+
 language: python
+
 python:
   - "3.5"
+
+services:
+  - docker
+
 # command to install dependencies
 install: "pip install -r requirements.txt"
+
 # lint
 script: flake8
+
+# publish docker image
+after_success:
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+  - docker build --pull -t jramcast/nuublo-predict .
+  - docker push jramcast/nuublo-predict
