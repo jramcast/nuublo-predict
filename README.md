@@ -1,6 +1,9 @@
 # nuublo-predict
 
+[![Build Status](https://travis-ci.org/jramcast/nuublo-predict.svg?branch=master)](https://travis-ci.org/jramcast/nuublo-predict)
+
 Weather text classifier based on https://www.kaggle.com/c/crowdflower-weather-twitter/data
+
 
 ## Run
 Requires python 3.
